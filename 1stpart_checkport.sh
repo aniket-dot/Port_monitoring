@@ -5,7 +5,14 @@ def lambda_handler(event, context):
     #Ec2_client = session.client(service_name='ec2')
     SSM_client = boto3.client('ssm', region_name='us-east-1')
     params={
-                    'commands’:[“sudo netstat  -nptl > port_test.txt”
+                    '#commands’:[“sudo netstat  -nptl > port_test.txt”
+                    'commands’:[“for i in `cat /home/aniket/test11/file1.txt | awk {'print $2'}
+                                  do
+x=$(ssh -o StrictHostKeyChecking=no -o  ConnectTimeout=10 aniket@i -p2222 "cat /etc/nagios/nrpe.cfg | grep -o -P ' -p [0-9]{0,4}' nrpe.txt | cut -d " " -f3")
+x=$(ssh -o StrictHostKeyChecking=no -o  ConnectTimeout=10 aniket@$i -p2222 "cat netstat -nptl | grep -o -P ':[0-9]{0,4}' | cut -d ":" -f2 | sort -u")
+echo "$i;;$"
+echo "$i;;$"
+done”
    
                     ]
     }
